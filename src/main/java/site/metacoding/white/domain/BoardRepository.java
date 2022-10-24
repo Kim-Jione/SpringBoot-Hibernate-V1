@@ -7,29 +7,28 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import site.metacoding.white.service.BoardService;
 
-@Repository // IOC 컨테이너 등록
 @RequiredArgsConstructor
+@Repository
 public class BoardRepository {
 
-	private final EntityManager em; // 하이버네이트 기술, DB에서 들고온 오브젝트를 타입이 다르니 자바 오브젝트로 바꿔준다 => 더 편하게 해줌
+	private final EntityManager em;
 
 	public void save(Board board) {
-
-		em.persist(board); // insert
-
+		em.persist(board);
 	}
 
 	public Board findById(Long id) {
-		Board boardPS = em.createQuery("select b from Board b where b.id=:id", Board.class)
+		// JPQL 문법
+		Board boardPS = em.createQuery("select b from Board b where b.id = :id", Board.class)
 				.setParameter("id", id)
 				.getSingleResult();
 		return boardPS;
 	}
 
 	public List<Board> findAll() {
-		List<Board> boardList = em.createQuery("select b from Board b ", Board.class)
+		// JPQL 문법
+		List<Board> boardList = em.createQuery("select b from Board b", Board.class)
 				.getResultList();
 		return boardList;
 	}
@@ -39,4 +38,5 @@ public class BoardRepository {
 				.setParameter("id", id)
 				.executeUpdate();
 	}
+
 }
