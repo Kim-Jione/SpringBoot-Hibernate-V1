@@ -17,5 +17,11 @@ public class UserReqDto { // 여기에 모든 Dto를 다 넣는다
         }
     }
 
+    @Setter // Dto는 변경 가능한 객체라고 약속함
+    @Getter
+    public static class LoginReqDto { // 내부 클래스 만드는데 외부에서 쓰고 싶을 때는 static을 붙이자. 내부에서 쓸 때는 안 붙여도 된다
+        private String username;
+        private String password;
+    }
 
 }
