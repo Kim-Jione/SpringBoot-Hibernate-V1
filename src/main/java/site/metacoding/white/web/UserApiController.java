@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.white.domain.User;
+import site.metacoding.white.dto.UserReqDto.JoinReqDto;
 import site.metacoding.white.service.UserService;
 
 @RequiredArgsConstructor
@@ -19,8 +20,8 @@ public class UserApiController {
 
 	// JoinDto
 	@PostMapping("/join")
-	public String save(@RequestBody User user) {
-		userService.save(user);
+	public String save(@RequestBody JoinReqDto joinReqDto) {
+		userService.save(joinReqDto);
 		return "ok";
 	}
 

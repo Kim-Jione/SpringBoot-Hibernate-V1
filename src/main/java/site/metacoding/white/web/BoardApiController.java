@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.white.domain.Board;
 import site.metacoding.white.domain.User;
-import site.metacoding.white.dto.BoardReqDto.BoardSaveDto;
+import site.metacoding.white.dto.BoardReqDto.BoardSaveReqDto;
 import site.metacoding.white.service.BoardService;
 
 @RequiredArgsConstructor
@@ -38,18 +38,18 @@ public class BoardApiController {
 		return "ok";
 	}
 
-	@PostMapping("/v2/board")
-	public String saveV2(@RequestBody BoardSaveDto boardSaveDto) {
+	@PostMapping("/board")
+	public String saveV2(@RequestBody BoardSaveReqDto boardSaveDto) {
 		User principal = (User) session.getAttribute("principal");
 		// insert into board(title,content,user_id) values(?, ?, ?)
 		boardSaveDto.setUser(principal);
-		boardService.save(boardSaveDto);
+		boardService.save(boardSaveDto); // 서비스에는 단 하나의 객체만 전달한다 
 		return "ok";
 	}
 
 	@GetMapping("/board/{id}")
 	public Board findById(@PathVariable Long id) {
-		return boardService.findById(id);
+		return boardService.findById(id); // Entity -> JSON 변경 (MessageConverter)
 	}
 
 	@GetMapping("/board")

@@ -6,10 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Setter
+@NoArgsConstructor // 엔티티에는 이게 하나는 꼭 필요하다 
 @Getter
 @Entity
 public class User {
@@ -19,4 +20,12 @@ public class User {
 	@Column(unique = true)
 	private String username;
 	private String password;
+
+	@Builder // 이 형태에서 Entity를 만들 수 있다
+	public User(Long id, String username, String password) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+	}
+	
 }
