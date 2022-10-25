@@ -14,8 +14,9 @@ public class BoardRepository {
 
 	private final EntityManager em;
 
-	public void save(Board board) {
-		em.persist(board); // 비교해서 없으면 추가하고 있으면 수정한다
+	public Board save(Board board) {
+		em.persist(board);
+		return board;
 	}
 
 	public Board findById(Long id) {

@@ -26,9 +26,10 @@ public class UserApiController {
 	@PostMapping("/join")
 	public ResponseDto<?> save(@RequestBody JoinReqDto joinReqDto) {
 		JoinRespDto joinRespDto = userService.save(joinReqDto);
-		return new ResponseDto<>(1, "ok", joinRespDto); // 내가 insert한 데이터를 body로 돌려주게 해야 한다 , CREATED insert 됐을
-														// 때 사용, 200은 잘 됐을 때
+		return new ResponseDto<>(1, "ok", joinRespDto);
 	}
+	// 내가 insert한 데이터를 body로 돌려주게 해야 한다 , CREATED insert 됐을
+	// 때 사용, 200은 잘 됐을 때
 
 	@PostMapping("/login")
 	public ResponseDto<?> login(@RequestBody LoginReqDto loginReqDto) {

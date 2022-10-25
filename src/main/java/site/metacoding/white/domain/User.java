@@ -10,7 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor // 엔티티에는 이게 하나는 꼭 필요하다 
+@NoArgsConstructor // 엔티티에 이거 하나는 필요함
 @Getter
 @Entity
 public class User {
@@ -21,11 +21,11 @@ public class User {
 	private String username;
 	private String password;
 
-	@Builder // 이 형태에서 Entity를 만들 수 있다
+	@Builder
 	public User(Long id, String username, String password) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 	}
-	
+
 }
