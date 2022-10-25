@@ -39,7 +39,7 @@ public class BoardApiController {
 	}
 
 	@PostMapping("/board")
-	public String saveV2(@RequestBody BoardSaveReqDto boardSaveDto) {
+	public String save(@RequestBody BoardSaveReqDto boardSaveDto) {
 		User principal = (User) session.getAttribute("principal");
 		// insert into board(title,content,user_id) values(?, ?, ?)
 		boardSaveDto.setUser(principal);

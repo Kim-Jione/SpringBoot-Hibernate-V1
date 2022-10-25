@@ -26,5 +26,12 @@ public class UserRepository {
 				.setParameter("username", username)
 				.getSingleResult();
 	}
-// 바자 오브젝트와 테이블 로우 한줄을 지속적으로 감지하면서 자동으로 맵핑되어 있다 우리는 PersistContext에 넣기만 하면 된다 계속 객체를 추적한다
+
+	public User findById(Long id) {
+		return em.createQuery("select u from User u where u.id=:id", User.class)
+				.setParameter("id", id)
+				.getSingleResult();
+	}
+	// 바자 오브젝트와 테이블 로우 한줄을 지속적으로 감지하면서 자동으로 맵핑되어 있다 우리는 PersistContext에 넣기만 하면 된다 계속
+	// 객체를 추적한다
 }
