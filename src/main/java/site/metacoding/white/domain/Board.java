@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class  Board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id; 
 	private String title;
 	@Column(length = 1000)
 	private String content;

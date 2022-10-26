@@ -10,10 +10,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor // 엔티티에 이거 하나는 필요함
+@NoArgsConstructor
 @Getter
 @Entity
-public class User {
+public class  User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
