@@ -8,7 +8,9 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 @Repository
 public class BoardRepository {
@@ -21,32 +23,17 @@ public class BoardRepository {
 	}
 
 	public Optional<Board> findById(Long id) {
-		// JPQL 문법
-		// Board boardPS = em.createQuery("select b from Board b where b.id = :id",
-		// Board.class)
-		// .setParameter("id", id)
-		// .getSingleResult();
+		try {
+			Optional<Board> boardOP = Optional.of(em
+					.createQuery("select b from Board b where b.id = :id",
+							Board.class)
+					.setParameter("id", id)
+					.getSingleResult());
+			return boardOP;
+		} catch (Exception e) {
+			return Optional.empty();
+		}
 
-		// Board boardPS = (Board) em
-		// .createNativeQuery("select * from board b inner join user u on b.user_id =
-		// u.id where b.id = :id",
-		// Board.class)
-		// .setParameter("id", id)
-		// .getSingleResult();
-
-		// Board boardPS = em
-		// .createQuery("select b from Board b join fetch b.user u where b.id = :id",
-		// Board.class)
-		// .setParameter("id", id)
-		// .getSingleResult();
-
-		Optional<Board> boardOP = Optional.ofNullable(em // null 에 대해 체크가 가능해서 nullpointexception 오류를 잡아낼 수 있다 => null이 들어오면 optional 박스 안에
-				.createQuery("select b from Board b where b.id = :id",
-						Board.class)
-				.setParameter("id", id)
-				.getSingleResult());
-
-		return boardOP;
 	}
 
 	public List<Board> findAll() {
@@ -61,5 +48,22 @@ public class BoardRepository {
 				.setParameter("id", id)
 				.executeUpdate();
 	}
+	// JPQL 문법
+	// Board boardPS = em.createQuery("select b from Board b where b.id = :id",
+	// Board.class)
+	// .setParameter("id", id)
+	// .getSingleResult();
 
+	// Board boardPS = (Board) em
+	// .createNativeQuery("select * from board b inner join user u on b.user_id =
+	// u.id where b.id = :id",
+	// Board.class)
+	// .setParameter("id", id)
+	// .getSingleResult();
+
+	// Board boardPS = em
+	// .createQuery("select b from Board b join fetch b.user u where b.id = :id",
+	// Board.class)
+	// .setParameter("id", id)
+	// .getSingleResult();
 }
