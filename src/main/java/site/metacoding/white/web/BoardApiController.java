@@ -29,11 +29,12 @@ public class BoardApiController {
 	public ResponseDto<?> save(@RequestBody BoardSaveReqDto boardSaveReqDto) {
 		SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
 		boardSaveReqDto.setSessionUser(sessionUser);
-		BoardSaveRespDto boardSaveRespDto = boardService.save(boardSaveReqDto); // 서비스에는 단 하나의 객체만 전달한다, sesstionUser를 따로 더 받아도 되지만 일관성을 지켜야 한다
+		BoardSaveRespDto boardSaveRespDto = boardService.save(boardSaveReqDto); // 서비스에는 단 하나의 객체만 전달한다, sesstionUser를
+																				// 따로 더 받아도 되지만 일관성을 지켜야 한다
 		return new ResponseDto<>(1, "성공", boardSaveRespDto);
 	}
 
-	// 게시글 상세보기
+	// 게시글 상세보기 (Board + User + List<Comment>)
 	@GetMapping("/board/{id}")
 	public ResponseDto<?> findById(@PathVariable Long id) { // ? = Object를 의미한다, extends Object
 		return new ResponseDto<>(1, "성공", boardService.findById(id));
@@ -66,6 +67,9 @@ public class BoardApiController {
 	// System.out.println("board.user.username : " +
 	// boardPS.getUser().getUsername());
 	// System.out.println("open-in-view가 false이면 Lazy 로딩 못함");
+
+	// em.createNativeQuery("select * from board b inner join user u on b.user_id =
+	// u.id where b.id=:id",Board.class).setParameter("id",id).getSingleResult();
 
 	// // 날라감)
 	// return "ok";
