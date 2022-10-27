@@ -28,5 +28,9 @@ public class CommentApiController {
 		return new ResponseDto<>(1, "성공", commentService.save(commentSaveReqDto));
 	}
 
-	
+	@DeleteMapping("/comment/{id}")
+	public ResponseDto<?> deleteById(@PathVariable Long id) {
+		commentService.deleteById(id);
+		return new ResponseDto<>(1, "성공", null);
+	}
 }
