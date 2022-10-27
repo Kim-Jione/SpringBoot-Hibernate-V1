@@ -2,6 +2,7 @@ package site.metacoding.white.web;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ public class BoardApiController {
 	}
 
 	// 게시글 상세보기 (Board + User + List<Comment>)
+	@CrossOrigin // 자바스크립트는 스프링에게 Ajax 요청을 할 수 없다 <- 이 정책에서 벗어날 수 있다
 	@GetMapping("/board/{id}")
 	public ResponseDto<?> findById(@PathVariable Long id) { // ? = Object를 의미한다, extends Object
 		return new ResponseDto<>(1, "성공", boardService.findById(id));

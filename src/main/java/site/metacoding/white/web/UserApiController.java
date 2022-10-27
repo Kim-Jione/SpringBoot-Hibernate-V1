@@ -28,7 +28,6 @@ public class UserApiController {
 	// ResponseEntity => 상태를 줄 수 있어야 한다(코드등) 요청한 애에게 돌려줄 때는 header(json, xml이야등등)와
 	// body(돌려주는 데이터)와 status (코드)
 
-
 	// 회원정보 전체 보기
 	@GetMapping("/user")
 	public ResponseDto<?> findAll() {
@@ -39,10 +38,7 @@ public class UserApiController {
 	@GetMapping("/user/{id}")
 	public ResponseDto<?> findById(@PathVariable Long id) {
 		return new ResponseDto<>(1, "ok", userService.findById(id));
-		}
-	
-
-
+	}
 
 	// 회원정보 수정하기
 	@PutMapping("/user/{id}")
