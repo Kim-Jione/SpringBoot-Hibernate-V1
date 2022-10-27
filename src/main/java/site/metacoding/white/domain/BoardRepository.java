@@ -48,6 +48,7 @@ public class BoardRepository {
 				.setParameter("id", id)
 				.executeUpdate();
 	}
+
 	// JPQL 문법
 	// Board boardPS = em.createQuery("select b from Board b where b.id = :id",
 	// Board.class)

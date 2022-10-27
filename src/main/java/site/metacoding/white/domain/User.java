@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
-public class  User {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,4 +28,8 @@ public class  User {
 		this.password = password;
 	}
 
+	public void update(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 }

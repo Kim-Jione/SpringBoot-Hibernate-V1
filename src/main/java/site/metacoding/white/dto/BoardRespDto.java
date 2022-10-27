@@ -89,7 +89,6 @@ public class BoardRespDto {
 		}
 	}
 
-
 	@Setter
 	@Getter
 	public static class BoardUpdateRespDto {
@@ -111,7 +110,9 @@ public class BoardRespDto {
 		public BoardUpdateRespDto(Board board) {
 			this.id = board.getId();
 			this.title = board.getTitle();
+			this.content = board.getContent();
 			this.user = new UserDto(board.getUser());
 		}
 	}
+
 }

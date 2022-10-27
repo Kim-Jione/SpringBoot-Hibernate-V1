@@ -24,4 +24,20 @@ public class UserReqDto { // 여기에 모든 Dto를 다 넣는다
         private String password;
     }
 
+    @Setter
+    @Getter
+    public static class UserUpdateReqDto {
+        private Long id;
+        private String username;
+        private String password;
+
+        public User toEntity() {
+            return User.builder()
+                    .id(id)
+                    .username(username)
+                    .password(password)
+                    .build();
+        }
+
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import site.metacoding.white.domain.Board;
 import site.metacoding.white.domain.BoardRepository;
 import site.metacoding.white.dto.BoardReqDto.BoardSaveReqDto;
@@ -20,6 +21,7 @@ import site.metacoding.white.dto.BoardRespDto.BoardUpdateRespDto;
 // 트랜잭션 관리
 // DTO 변환해서 컨트롤러에게 돌려줘야함
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BoardService {
@@ -35,23 +37,22 @@ public class BoardService {
 		BoardSaveRespDto boardSaveRespDto = new BoardSaveRespDto(boardPS);
 
 		return boardSaveRespDto;
-	}
+	} // DB커넥션을 종료
 
 	@Transactional(readOnly = true) // 트랜잭션을 걸면 OSIV가 false여도 디비 커넥션이 유지됨.
 	public BoardDetailRespDto findById(Long id) {
 
-		Optional<Board> boardOP = boardRepository.findById(id); // Optional ⇒ null 체크하기 좋다
+		Optional<Board> boardOP = boardRepository.findById(id);
 		if (boardOP.isPresent()) {
 			BoardDetailRespDto boardDetailRespDto = new BoardDetailRespDto(boardOP.get());
 			return boardDetailRespDto;
 		} else {
-			throw new RuntimeException("해당 " + id + "로 상세보기를 할 수 없습니다."); // 이런식으로 하는게 restController다
+			throw new RuntimeException("해당 " + id + "로 상세보기를 할 수 없습니다.");
 		}
-
 	}
 
 	@Transactional
-	public BoardUpdateRespDto update(BoardUpdateReqDto boardUpdateReqDto) { // 찾아 가져와서 영속성 컨텍스트에 집어 넣은 것
+	public BoardUpdateRespDto update(BoardUpdateReqDto boardUpdateReqDto) {
 		Long id = boardUpdateReqDto.getId();
 		Optional<Board> boardOP = boardRepository.findById(id);
 		if (boardOP.isPresent()) {
@@ -76,6 +77,11 @@ public class BoardService {
 		return boardAllRespDtoList;
 	}
 
+	// return boardRepository.findAll()
+	// .stream().map((board) -> new
+	// BoardAllRespDto(board)).collect(Collectors.toList());
+
+	// delete는 리턴 안함.
 	@Transactional
 	public void deleteById(Long id) {
 		Optional<Board> boardOP = boardRepository.findById(id);
